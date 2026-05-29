@@ -1,11 +1,13 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio 15
-VisualStudioVersion = 15.0.36001.139
+# Visual Studio Version 17
+VisualStudioVersion = 17.14.36915.13 d17.14
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "Client", "Client\Client.vcxproj", "{21DFAD20-5194-4D29-9EFF-A7614CF7E63F}"
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "Server", "Server\Server.vcxproj", "{20D01774-38DD-481A-8D46-DF5A17F9F490}"
+EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "FormatLastError", "FormatLastError\FormatLastError.vcxproj", "{6C3982DA-E3DA-4E69-87C3-B8755C16645B}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -31,6 +33,14 @@ Global
 		{20D01774-38DD-481A-8D46-DF5A17F9F490}.Release|x64.Build.0 = Release|x64
 		{20D01774-38DD-481A-8D46-DF5A17F9F490}.Release|x86.ActiveCfg = Release|Win32
 		{20D01774-38DD-481A-8D46-DF5A17F9F490}.Release|x86.Build.0 = Release|Win32
+		{6C3982DA-E3DA-4E69-87C3-B8755C16645B}.Debug|x64.ActiveCfg = Debug|x64
+		{6C3982DA-E3DA-4E69-87C3-B8755C16645B}.Debug|x64.Build.0 = Debug|x64
+		{6C3982DA-E3DA-4E69-87C3-B8755C16645B}.Debug|x86.ActiveCfg = Debug|Win32
+		{6C3982DA-E3DA-4E69-87C3-B8755C16645B}.Debug|x86.Build.0 = Debug|Win32
+		{6C3982DA-E3DA-4E69-87C3-B8755C16645B}.Release|x64.ActiveCfg = Release|x64
+		{6C3982DA-E3DA-4E69-87C3-B8755C16645B}.Release|x64.Build.0 = Release|x64
+		{6C3982DA-E3DA-4E69-87C3-B8755C16645B}.Release|x86.ActiveCfg = Release|Win32
+		{6C3982DA-E3DA-4E69-87C3-B8755C16645B}.Release|x86.Build.0 = Release|Win32
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
