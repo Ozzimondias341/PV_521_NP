@@ -93,6 +93,7 @@ void main()
 	{
 
 	iResult = send(connect_socket, sendbuffer, strlen(sendbuffer), 0);
+
 	if (iResult == SOCKET_ERROR)
 	{
 		cout << FormatLastError(WSAGetLastError(), szError) << endl;
