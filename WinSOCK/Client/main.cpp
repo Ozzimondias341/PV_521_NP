@@ -23,6 +23,7 @@ using namespace std;
 #define PORT "27015"
 #define BUFFER_LENGTH	1500
 
+CHAR recvbuffer[BUFFER_LENGTH] = {};
 
 
 VOID Recieve(SOCKET connect_socket);
@@ -105,7 +106,7 @@ void main()
 	do
 	{
 
-	CHAR recvbuffer[BUFFER_LENGTH] = {};
+	//CHAR recvbuffer[BUFFER_LENGTH] = {};
 	iResult = send(connect_socket, sendbuffer, strlen(sendbuffer), 0);
 
 	if (iResult == SOCKET_ERROR)
@@ -119,12 +120,13 @@ void main()
 	}
 	cout << "Bytes sent: " << iResult << endl;
 
-	
+	if (strcmp(recvbuffer, DECLINE_MESSAGE) == 0) break;
+
 		ZeroMemory(sendbuffer, BUFFER_LENGTH);
 		SetConsoleCP(1251);
 		cin.getline(sendbuffer, BUFFER_LENGTH);
 		SetConsoleCP(866);
-	} while (strcmp(sendbuffer, "exit") != 0);
+	} while ((strcmp(sendbuffer, "exit") != 0) );
 
 
 	iResult = shutdown(connect_socket, SD_BOTH);
@@ -142,7 +144,7 @@ VOID Recieve(SOCKET connect_socket)
 {
 		DWORD dwError = WSAGetLastError();
 		CHAR szError[256] = {};
-		CHAR recvbuffer[BUFFER_LENGTH] = {};
+		//CHAR recvbuffer[BUFFER_LENGTH] = {};
 		INT iResult = recv(connect_socket, recvbuffer, BUFFER_LENGTH, 0);
 		do
 		{
@@ -155,11 +157,12 @@ VOID Recieve(SOCKET connect_socket)
 		//else if (result == 0) cout << "Connection closed" << endl;
 		else	cout << FormatLastError(WSAGetLastError(), szError) << endl;
 		cout << "Receive failed:\t" << WSAGetLastError() << endl;
-		} while (iResult > 0);
+		} while (strcmp(recvbuffer, DECLINE_MESSAGE) != 0);
 
 		if (strcmp(recvbuffer, DECLINE_MESSAGE) == 0)
 		{
-			system("PAUSE");
+			cout << "Для выхода нажмите ENTER" << endl;
+			//system("PAUSE");
 			//break;
 		}
 }
