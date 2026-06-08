@@ -25,6 +25,8 @@ using namespace std;
 
 
 
+VOID Recieve(SOCKET connect_socket);
+
 
 void main()
 {
@@ -88,6 +90,16 @@ void main()
 	}
 
 	//5) Отправка и получение данных:
+	DWORD dwRecieveThreadID = 0;
+	HANDLE hRecieveThread = CreateThread
+	(
+		NULL,
+		0,
+		(LPTHREAD_START_ROUTINE)Recieve,
+		(LPVOID)connect_socket,
+		0,
+		&dwRecieveThreadID
+	);
 	CHAR sendbuffer[BUFFER_LENGTH] = "Hello Server";
 
 	do
@@ -107,25 +119,7 @@ void main()
 	}
 	cout << "Bytes sent: " << iResult << endl;
 
-	//do
-	//{
-		iResult = recv(connect_socket, recvbuffer, BUFFER_LENGTH, 0);
-
-		/*DWORD dwError = WSAGetLastError();
-		CHAR szError[256] = {};
-		cout << FormatLastError(dwError, szError) << endl;*/
-
-		if (iResult > 0)cout << recvbuffer << "(" << iResult << " Bytes)" << endl;
-		else if (result == 0) cout << "Connection closed" << endl;
-		else	cout << FormatLastError(WSAGetLastError(), szError) << endl;
-		//cout << "Receive failed:\t" << WSAGetLastError() << endl;
-	//} while (iResult > 0);
-
-		if (strcmp(recvbuffer, DECLINE_MESSAGE) == 0)
-		{
-			system("PAUSE");
-			break;
-		}
+	
 		ZeroMemory(sendbuffer, BUFFER_LENGTH);
 		SetConsoleCP(1251);
 		cin.getline(sendbuffer, BUFFER_LENGTH);
@@ -142,4 +136,30 @@ void main()
 		closesocket(connect_socket);
 		freeaddrinfo(result);
 		WSACleanup();
+}
+
+VOID Recieve(SOCKET connect_socket)
+{
+		DWORD dwError = WSAGetLastError();
+		CHAR szError[256] = {};
+		CHAR recvbuffer[BUFFER_LENGTH] = {};
+		INT iResult = recv(connect_socket, recvbuffer, BUFFER_LENGTH, 0);
+		do
+		{
+			ZeroMemory(recvbuffer, sizeof(recvbuffer));
+		/*DWORD dwError = WSAGetLastError();
+		CHAR szError[256] = {};
+		cout << FormatLastError(dwError, szError) << endl;*/
+
+		if (iResult > 0)cout << recvbuffer << "(" << iResult << " Bytes)" << endl;
+		//else if (result == 0) cout << "Connection closed" << endl;
+		else	cout << FormatLastError(WSAGetLastError(), szError) << endl;
+		cout << "Receive failed:\t" << WSAGetLastError() << endl;
+		} while (iResult > 0);
+
+		if (strcmp(recvbuffer, DECLINE_MESSAGE) == 0)
+		{
+			system("PAUSE");
+			//break;
+		}
 }
