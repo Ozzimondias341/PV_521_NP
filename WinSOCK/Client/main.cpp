@@ -154,10 +154,15 @@ VOID Recieve(SOCKET connect_socket)
 		cout << FormatLastError(dwError, szError) << endl;*/
 
 		if (iResult > 0)cout << recvbuffer << "(" << iResult << " Bytes)" << endl;
-		//else if (result == 0) cout << "Connection closed" << endl;
-		else	cout << FormatLastError(WSAGetLastError(), szError) << endl;
-		cout << "Receive failed:\t" << WSAGetLastError() << endl;
-		} while (strcmp(recvbuffer, DECLINE_MESSAGE) != 0);
+		else if (iResult == 0) cout << "Connection closed" << endl;
+		else
+		{
+			cout << FormatLastError(dwError = WSAGetLastError(), szError) << endl;
+			break;
+
+		}
+
+		} while (strcmp(recvbuffer, DECLINE_MESSAGE) != 0 && dwError > 0);
 
 		if (strcmp(recvbuffer, DECLINE_MESSAGE) == 0)
 		{
